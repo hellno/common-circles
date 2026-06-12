@@ -120,6 +120,9 @@ afterEach(() => {
 describe("provider parity (keyless vs Neynar)", () => {
   it("getUsersByFids produces the same normalized FarcasterUser", async () => {
     vi.stubEnv("NEYNAR_API_KEY", "");
+    // HyperSnap now defaults to a public node; disable it so getProvider()
+    // exercises the keyless api.farcaster.xyz path this test asserts.
+    vi.stubEnv("HYPERSNAP_NODE_URL", "");
     vi.stubGlobal("fetch", keylessFetch());
     const { getProvider } = await import("@/lib/farcaster-server");
     const keyless = await getProvider().getUsersByFids([FID]);
@@ -137,6 +140,9 @@ describe("provider parity (keyless vs Neynar)", () => {
 
   it("getVerificationsByFids produces the same {rows, failedFids} shape", async () => {
     vi.stubEnv("NEYNAR_API_KEY", "");
+    // HyperSnap now defaults to a public node; disable it so getProvider()
+    // exercises the keyless api.farcaster.xyz path this test asserts.
+    vi.stubEnv("HYPERSNAP_NODE_URL", "");
     vi.stubGlobal("fetch", keylessFetch());
     const { getProvider } = await import("@/lib/farcaster-server");
     const keyless = await getProvider().getVerificationsByFids([FID]);
@@ -157,6 +163,9 @@ describe("provider parity (keyless vs Neynar)", () => {
 
   it("getPrimaryAddresses produces the same normalized map", async () => {
     vi.stubEnv("NEYNAR_API_KEY", "");
+    // HyperSnap now defaults to a public node; disable it so getProvider()
+    // exercises the keyless api.farcaster.xyz path this test asserts.
+    vi.stubEnv("HYPERSNAP_NODE_URL", "");
     vi.stubGlobal("fetch", keylessFetch());
     const { getProvider } = await import("@/lib/farcaster-server");
     const keyless = await getProvider().getPrimaryAddresses([FID]);
